@@ -1,0 +1,41 @@
+services:
+  isaacgym_ws:
+    build:
+      context: ..                # 指定构建上下文（当前目录）
+      dockerfile: docker/Dockerfile    # 默认就是 Dockerfile，可以省略
+    image: isaacgym_ws          # image name
+    container_name: isaacgym_ws
+    privileged: true
+    security_opt:
+      - seccomp=unconfined
+
+    # GPU 支持
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+
+    # 环境变量
+    environment:
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+
+    # 挂载
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime:ro
+      - /dev/input:/dev/input
+      - /run/udev:/run/udev
+      - ../.cache/pip:/root/.cache/pip
+      - ../.cache/uv:/root/.cache/uv
+      - ../:/root/code/isaacgym_ws
+
+    # 网络设置
+    network_mode: host
+
+    # 交互式（等价 -it）
+    stdin_open: true
+    tty: true
