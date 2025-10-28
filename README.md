@@ -75,4 +75,7 @@ python mimickit/run.py --arg_file args/deepmimic_humanoid_ppo_args.txt --visuali
 
 cd src/humanoid-gym/humanoid
 python scripts/train.py --task=humanoid_ppo --run_name v1 --headless --num_envs 4096
+
+cd src/unitree_rl_gym
+python legged_gym/scripts/train.py --task=g1
 ```

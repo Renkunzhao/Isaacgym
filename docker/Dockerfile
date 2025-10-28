@@ -28,6 +28,8 @@ RUN apt-get install -y wget python3-pip libmkl-intel-lp64 libmkl-gnu-thread libm
     pip install uv && \
     ln -s /usr/lib/x86_64-linux-gnu/libomp.so.5 /usr/lib/x86_64-linux-gnu/libomp.so
 
+RUN apt upgrade libcudnn9-cuda-12 libcudnn9-dev-cuda-12
+
 # WAR for eglReleaseThread shutdown crash in libEGL_mesa.so.0 (ensure it's never detected/loaded)
 # Can't remove package libegl-mesa0 directly (because of libegl1 which we need)
 RUN rm /usr/lib/x86_64-linux-gnu/libEGL_mesa.so.0 /usr/lib/x86_64-linux-gnu/libEGL_mesa.so.0.0.0 /usr/share/glvnd/egl_vendor.d/50_mesa.json
