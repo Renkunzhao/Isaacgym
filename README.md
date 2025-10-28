@@ -72,4 +72,7 @@ python train.py task=Cartpole
 
 cd src/MimicKit
 python mimickit/run.py --arg_file args/deepmimic_humanoid_ppo_args.txt --visualize true
+
+cd src/humanoid-gym/humanoid
+python scripts/train.py --task=humanoid_ppo --run_name v1 --headless --num_envs 4096
 ```

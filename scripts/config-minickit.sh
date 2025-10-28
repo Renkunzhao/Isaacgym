@@ -12,5 +12,3 @@ wget -nc https://github.com/Renkunzhao/MimicKit/releases/download/Data/MimicKit_
 unzip -o MimicKit_Data.zip 'MimicKit_Data/*' -d data
 rsync -a data/MimicKit_Data/* data/
 rm -rf data/MimicKit_Data
-
-
