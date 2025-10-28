@@ -2,8 +2,9 @@
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"/../
 mkdir -p $PROJECT_DIR/lib
 
-# Reference: https://blog.csdn.net/m0_56706433/article/details/148902144
-
+# Reference: 
+# https://blog.csdn.net/m0_56706433/article/details/148902144
+# https://developer.nvidia.com/cuda-12-8-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_network
 # Install CUDA Toolkit 12.8 (if not already installed)
 # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
 # dpkg -i cuda-keyring_1.1-1_all.deb

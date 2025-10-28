@@ -69,4 +69,7 @@ python joint_monkey.py
 
 cd lib/IsaacGymEnvs/isaacgymenvs
 python train.py task=Cartpole
+
+cd src/MimicKit
+python mimickit/run.py --arg_file args/deepmimic_humanoid_ppo_args.txt --visualize true
 ```
