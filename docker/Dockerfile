@@ -1,5 +1,9 @@
-FROM nvcr.io/nvidia/pytorch:21.09-py3
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive 
+
+RUN sed -i 's|http://.*archive.ubuntu.com|http://mirror.mit.edu/ubuntu/|g' /etc/apt/sources.list && \
+    sed -i 's|http://.*security.ubuntu.com|http://mirror.mit.edu/ubuntu/|g' /etc/apt/sources.list && \
+    apt clean
 
 # dependencies for gym
 #
@@ -13,13 +17,16 @@ RUN apt-get update \
  zip \
  unzip \
  make \
- vulkan-utils \
+ vulkan-tools \
  mesa-vulkan-drivers \
  pigz \
  git \
  libegl1 \
  git-lfs
 
+RUN apt-get install -y wget python3-pip libmkl-intel-lp64 libmkl-gnu-thread libmkl-core libomp5 openmpi-bin && \
+    pip install uv && \
+    ln -s /usr/lib/x86_64-linux-gnu/libomp.so.5 /usr/lib/x86_64-linux-gnu/libomp.so
 
 # WAR for eglReleaseThread shutdown crash in libEGL_mesa.so.0 (ensure it's never detected/loaded)
 # Can't remove package libegl-mesa0 directly (because of libegl1 which we need)
