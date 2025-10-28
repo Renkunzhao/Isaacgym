@@ -24,11 +24,12 @@ RUN apt-get update \
  libegl1 \
  git-lfs
 
+RUN apt upgrade libcudnn9-cuda-12 libcudnn9-dev-cuda-12
+
 RUN apt-get install -y wget python3-pip libmkl-intel-lp64 libmkl-gnu-thread libmkl-core libomp5 openmpi-bin && \
     pip install uv && \
-    ln -s /usr/lib/x86_64-linux-gnu/libomp.so.5 /usr/lib/x86_64-linux-gnu/libomp.so
-
-RUN apt upgrade libcudnn9-cuda-12 libcudnn9-dev-cuda-12
+    ln -s /usr/lib/x86_64-linux-gnu/libomp.so.5 /usr/lib/x86_64-linux-gnu/libomp.so && \
+    apt install -y libglib2.0-bin 
 
 # WAR for eglReleaseThread shutdown crash in libEGL_mesa.so.0 (ensure it's never detected/loaded)
 # Can't remove package libegl-mesa0 directly (because of libegl1 which we need)
