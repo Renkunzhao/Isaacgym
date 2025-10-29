@@ -99,6 +99,7 @@ headless=False
 cd src/ASAP
 
 # test
+cd src/ASAP
 HYDRA_FULL_ERROR=1 \
 uv run python humanoidverse/train_agent.py \
 +simulator=isaacgym \
@@ -114,6 +115,7 @@ experiment_name=G123dof_loco \
 headless=False
 
 # Train a phase-based motion tracking policy to imitate Cristiano Ronaldo's signature Siuuu move
+cd src/ASAP
 uv run python humanoidverse/train_agent.py \
 +simulator=isaacgym \
 +exp=motion_tracking \
@@ -134,4 +136,34 @@ env.config.termination_curriculum.terminate_when_motion_far_curriculum=True \
 env.config.termination_curriculum.terminate_when_motion_far_threshold_min=0.3 \
 env.config.termination_curriculum.terminate_when_motion_far_curriculum_degree=0.000025 \
 robot.asset.self_collisions=0
+
+# SkillMimic
+cd src/SkillMimic
+uv run python skillmimic/run.py --test --task SkillMimicBallPlay --num_envs 16 \
+--cfg_env skillmimic/data/cfg/skillmimic.yaml \
+--cfg_train skillmimic/data/cfg/train/rlg/skillmimic.yaml \
+--motion_file skillmimic/data/motions/BallPlay-M/layup \
+--checkpoint skillmimic/data/models/mixedskills/nn/skillmimic_llc.pth \
+--state_init 20 \
+--episode_length 140
+
+cd src/SkillMimic
+uv run python skillmimic/run.py --task SkillMimicBallPlay \
+--cfg_env skillmimic/data/cfg/skillmimic.yaml \
+--cfg_train skillmimic/data/cfg/train/rlg/skillmimic.yaml \
+--motion_file skillmimic/data/motions/BallPlay-M/layup --headless
+
+# SkillMimic-V2
+cd src/SkillMimic-V2
+uv run --venv /root/code/isaacgym_ws/src/SkillMimic/.venv \
+python skillmimic/run.py \
+  --play_dataset \
+  --task SkillMimic2BallPlay \
+  --test \
+  --num_envs 1 \
+  --episode_length 1000 \
+  --state_init 2 \
+  --cfg_env skillmimic/data/cfg/skillmimic.yaml \
+  --cfg_train skillmimic/data/cfg/train/rlg/skillmimic.yaml \
+  --motion_file skillmimic/data/motions/BallPlay-Pick
 ```
